@@ -1,0 +1,1 @@
+# SUMMATIVE_AI_Group17_Kenya-Housing
