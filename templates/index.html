@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>House Price Prediction</title>
+  </head>
+  <body>
+	<section>
+		<h1>Kenya House Price Prediction</h1>
+		<div class="selection">
+		<article>
+			<img alt="" src="{{ url_for('static', filename='img/house.png') }}">
+		</article>
+		<aside>
+			<form method="post">
+				<p>Fill in the details for your ideal rental</p>
+				<label for="town">Town:</label>
+				<select id="town" name="town" required>
+					<option value="" selected disabled>Select a town</option>
+					{% for town in towns %}
+					<option value="{{ town }}">{{ town }}</option>
+					{% endfor %}
+				</select><br>
+				<label for="sq_mtrs">Number of Sq_mtrs:</label>
+				<input type="number" id="sq_mtrs" name="sq_mtrs" required><br>
+				<label for="bedrooms">Bedrooms:</label>
+				<input type="number"  id="bedrooms" name="bedrooms" required><br>
+				<label for="bathrooms">Bathrooms:</label>
+				<input type="number"  id="bathrooms" name="bathrooms" required><br>
+				<label for="duration">Duration:</label>
+				<div class="duration">
+					<input type="radio" id="duration_days" name="duration" value="days" required>
+					<label for="duration_days">Days</label>
+					<input type="radio" id="duration_months" name="duration" value="months" required>
+					<label for="duration_months">Months</label>
+				</div>
+				<label for="duration_value">Number of days/months:</label>
+				<input type="number" id="duration_value" name="duration_value" required><br>
+
+				<button type="submit">Predict</button><br>
+			</form>
+		</aside>
+	    </div>
+		{% if price_pred is defined %}
+        <div class = "results">
+			<h2>Results</h2>
+			<p>The predicted rounded price for a house with your descriptions are below</p>
+			<table>
+				<thead>
+					<tr>
+						<th>Town</th>
+						<th>Sq_mtrs</th>
+						<th>Bedrooms</th>
+						<th>Bathrooms</th>
+						<th>Predicted Duration</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{ town }}</td>
+						<td>{{ sq_mtrs }}</td>
+						<td>{{ bedrooms }}</td>
+						<td>{{ bathrooms }}</td>
+						<td>{{ duration_value }} {{ duration }}</td>
+						<td>{{ '{:,.0f} Ksh'.format(price_pred) }}</td>
+					</tr>
+				</tbody>
+			</table>
+			{% if lowest_price_towns is not none %}
+			<h3>Lowest priced Towns with similar details:</h3>
+			<table>
+				<thead>
+					<tr>
+						<th>Town</th>
+						<th>Sq_mtrs</th>
+						<th>Bedrooms</th>
+						<th>Bathrooms</th>
+						<th>Predicted Duration</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in range(0,len_lowest_price_towns) %}
+					<tr>
+						<td>{{ lowest_price_towns[i]['Town'] }}</td>
+						<td>{{ sq_mtrs }}</td>
+						<td>{{ bedrooms }}</td>
+						<td>{{ bathrooms }}</td>
+						<td>{{ duration_value }} {{ duration }}</td>
+						<td>{{ '{:,.0f} Ksh'.format(lowest_price_towns[i]['Price']) }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% endif %}
+			{% if highest_price_towns is not none %}
+			<h3>Highest priced Towns with similar details:</h3>
+			<table>
+				<thead>
+					<tr>
+						<th>Town</th>
+						<th>Sq_mtrs</th>
+						<th>Bedrooms</th>
+						<th>Bathrooms</th>
+						<th>Predicted Duration</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in range(0,len_highest_price_towns) %}
+					<tr>
+						<td>{{ highest_price_towns[i]['Town'] }}</td>
+						<td>{{ sq_mtrs }}</td>
+						<td>{{ bedrooms }}</td>
+						<td>{{ bathrooms }}</td>
+						<td>{{ duration_value }} {{ duration }}</td>
+						<td>{{ '{:,.0f} Ksh'.format(highest_price_towns[i]['Price']) }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+		</div>  
+    {% endif %}
+	</section>
+    
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

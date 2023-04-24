@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>House Price Prediction</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<script>
+		function validateInputs() {
+			var bedroomsInput = document.getElementById("bedrooms");
+			var bathroomsInput = document.getElementById("bathrooms");
+			var sq_mtrsbathroomsInput = document.getElementById("sq_mtrs");
+			if (bedroomsInput.value < 1 || !Number.isInteger(Number(bedroomsInput.value))) {
+				alert("Please enter a positive integer value for the number of bedrooms.");
+				return false;
+			}
+
+			if (bathroomsInput.value < 1 || !Number.isInteger(Number(bathroomsInput.value))) {
+				alert("Please enter a positive integer value for the number of bathrooms.");
+				return false;
+			}
+			if (sq_mtrsbathroomsInput.value < 1 || !Number.isInteger(Number(sq_mtrsbathroomsInput.value))) {
+				alert("Please enter a positive integer value for the number of sq_mtrs.");
+				return false;
+			}
+
+			return true;
+		}
+	</script>
+</head>
+<body>
+	<section>
+		<h1>Kenya House Price Prediction</h1>
+	<article>
+		<img alt="" src="{{ url_for('static', filename='img/house.png') }}">
+	</article>
+	<aside>
+		<form action="/" method="POST" onsubmit="return validateInputs();">
+			<label for="bedrooms">Number of Bedrooms:</label>
+			<input type="number" id="bedrooms" name="bedrooms"><br><br>
+			<label for="bathrooms">Number of Bathrooms:</label>
+			<input type="number" id="bathrooms" name="bathrooms"><br><br>
+			<label for="sq_mtrs">Number of Sq_mtrs:</label>
+			<input type="number" id="sq_mtrs" name="sq_mtrs"><br><br>
+			<input type="submit" value="Submit">
+		</form>
+	</aside>
+	{% if prediction is not none %}
+	<div class = "results">
+		<h2>Results</h2>
+		<p>The predicted rounded price for a house with your descriptions are below</p>
+		<table>
+			<tr>
+				<th>Bedrooms</th><th>Bathrooms</th><th>Sq_mtrs</th><th>Price Ksh</th>
+			</tr>
+			<tr>
+				<td>{{input_data.Bedrooms}}</td>
+				<td>{{input_data.Bathrooms}}</td>
+				<td>{{input_data.Sq_mtrs}}</td>
+				<td>{{prediction|round(-2)}}</td>
+			</tr>
+		</table>
+	</div>
+	{% endif %}
+	</section>
+</body>
+</html>

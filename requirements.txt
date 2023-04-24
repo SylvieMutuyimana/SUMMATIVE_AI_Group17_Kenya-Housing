@@ -1,0 +1,10 @@
+flask
+gunicorn
+ipykernel
+pandas
+numpy
+matplotlib
+scikit-learn
+seaborn
+missingno
+statsmodels
