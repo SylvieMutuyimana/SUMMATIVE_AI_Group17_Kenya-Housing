@@ -14,4 +14,4 @@ A requirements.txt containing all the required dependencies
 - The Platform: House Price Prediction (kenya-rental prices.onrender.com)
 - Project Proposal: Project Proposal
 - The Model : https://github.com/SylvieMutuyimana/SUMMATIVE_AI_Group17_KenyaHousing.git
-- Video Walkthrough: Group17AI_Summative - Google Drive
+- Video Walkthrough: https://drive.google.com/drive/u/1/folders/1hhz5EQ4sdMSdjJqnvGc0XmXK9VAiz4WN

@@ -23,7 +23,7 @@ import joblib
 
 #Merge the dataset
 # Concatenate the datasets vertically
-merged_df = pd.read_csv('merged_dataset.csv')
+merged_df = pd.read_csv('datasets/merged_dataset.csv')
 merged_df.columns
 
 

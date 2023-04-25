@@ -5,7 +5,7 @@ import joblib
 from sklearn.preprocessing import OneHotEncoder
 
 # Load the dataset
-data = pd.read_csv('merged_dataset.csv')
+data = pd.read_csv('datasets/merged_dataset.csv')
 
 # Load the trained model
 clf = joblib.load('the_model.joblib')
