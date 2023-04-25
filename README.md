@@ -8,10 +8,13 @@ The project uses two datasets:
 - Apartments.csv
 - Rent_apts.csv
 
-To run the application, open instructions.txt and follow the steps
+To run the application follow the below steps or open instructions.txt and follow the steps
+ - Install the requirements in requirements.txt
+ - Run the app.py in the terminal (a local host server will be created)
+ 
 A requirements.txt containing all the required dependencies
 
-- The Platform: House Price Prediction (kenya-rental prices.onrender.com)
+- The Platform: https://kenya-rentalprices.onrender.com/
 - Project Proposal: Project Proposal
 - The Model : https://github.com/SylvieMutuyimana/SUMMATIVE_AI_Group17_KenyaHousing.git
 - Video Walkthrough: https://drive.google.com/drive/u/1/folders/1hhz5EQ4sdMSdjJqnvGc0XmXK9VAiz4WN

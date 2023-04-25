@@ -116,13 +116,6 @@ else:
     print("All missing values in 'sq_mtrs' column have been filled")
 
 
-# In[11]:
-
-
-# Save the merged dataset
-merged_df.to_csv('../merged_dataset.csv', index=False)
-
-
 # # Visualising the data
 # 
 # 
@@ -370,5 +363,5 @@ plt.show()
 # In[37]:
 
 
-joblib.dump(clf, '../the_model.joblib')
+joblib.dump(clf, 'the_model.joblib')
 

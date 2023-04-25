@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
 import joblib
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 # Load the dataset
 data = pd.read_csv('datasets/merged_dataset.csv')
@@ -10,9 +10,12 @@ data = pd.read_csv('datasets/merged_dataset.csv')
 # Load the trained model
 clf = joblib.load('the_model.joblib')
 
-# Create an instance of the OneHotEncoder class and fit it to the Town column of the dataset
+# Create instances of the OneHotEncoder and StandardScaler classes and fit them to the data
 ohe = OneHotEncoder(handle_unknown='ignore')
 ohe.fit(data[['Town']])
+
+scaler = StandardScaler()
+scaler.fit(data[['Bedrooms', 'Bathrooms', 'sq_mtrs']])
 
 app = Flask(__name__)
 
@@ -30,12 +33,15 @@ def index():
         duration = request.form.get('duration')
         duration_value = request.form.get('duration_value', type=int)
 
-        # Collect all the inputs except the town so that we can predict for each other town
+        # Scale the numerical features
         X_num = pd.DataFrame({'Bedrooms': [bedrooms], 'Bathrooms': [bathrooms],'sq_mtrs': [sq_mtrs]})
-        X_num = pd.concat([X_num]*len(data['Town'].unique()), ignore_index=True)
+        X_num_scaled = pd.DataFrame(scaler.transform(X_num), columns=X_num.columns)
+
+        # Collect all the inputs except the town so that we can predict for each other town
+        X_num_scaled = pd.concat([X_num_scaled]*len(data['Town'].unique()), ignore_index=True)
         X_cat = pd.DataFrame({'Town': data['Town'].unique()})
         X_cat_encoded = pd.DataFrame(ohe.transform(X_cat).toarray(), columns=ohe.get_feature_names_out(['Town']))
-        X = pd.concat([X_num, X_cat_encoded], axis=1)
+        X = pd.concat([X_num_scaled, X_cat_encoded], axis=1)
 
         # Make the predictions for all towns and adjust based on the duration and num values
         price_preds = clf.predict(X)
@@ -57,6 +63,7 @@ def index():
         len_lowest_price_towns = len(lowest_price_towns)
         highest_price_towns = data_copy[['Town', 'Price']].sort_values('Price', ascending=False).drop_duplicates().head(5).to_dict('records')
         len_highest_price_towns = len(highest_price_towns)
+
 
         # Round the final prediction to 2 decimal places
         price_pred = round(data_copy.loc[data_copy['Town'] == town, 'Price'].iloc[0], 2)
