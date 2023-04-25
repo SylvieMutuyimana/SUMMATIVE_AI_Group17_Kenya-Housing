@@ -1,0 +1,16 @@
+To start
+run:
+ - start.bat
+this will create a virtual environment to work in and will install all the requirements.
+If you want to do this manually follow the steps below
+ - Create a virtualenv pip install virtualenv
+ - python -m venv venv
+ - venv\Scripts\activate
+ - Install all the requirements: pip install -r requirements.txt
+
+run the app.py file to start the server
+if in PS ( - ./app.py)
+if in CMD (- app.py)
+
+- You can choose to view the deployed model on
+https://kenya-rentalprices.onrender.com/
