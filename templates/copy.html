@@ -72,7 +72,7 @@
 							{% if price_pred <= 0 %}
 							N/A
 							{% else %}
-							{{ '{:,.0f} Ksh'.format(price_pred) }}
+							{{ '{:,.0f} Ksh'.format(lowest_price_towns[i]['Price']) }}
 							{% endif %}
 						</td>
 					</tr>
@@ -99,6 +99,7 @@
 						<td>{{ bedrooms }}</td>
 						<td>{{ bathrooms }}</td>
 						<td>{{ duration_value }} {{ duration }}</td>
+						<td>{{ '{:,.0f} Ksh'.format(lowest_price_towns[i]['Price']) }}</td>
 						<td>
 							{% if lowest_price_towns[i]['Price'] <= 0 %}
 							N/A

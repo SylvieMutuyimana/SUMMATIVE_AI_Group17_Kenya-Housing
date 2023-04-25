@@ -48,7 +48,8 @@ def index():
         if duration == 'months':
             price_preds *= duration_value
         else:
-            price_preds *= duration_value / 30
+            price_preds *= duration_value / 30.0  # Fix for negative values
+        
 
         # Add the predicted prices to the data_copy DataFrame for the corresponding Town
         data_copy = data.copy()
