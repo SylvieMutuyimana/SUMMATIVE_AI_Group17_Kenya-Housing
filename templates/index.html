@@ -133,5 +133,27 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		// Get references to the input fields
+var sq_mtrs_input = document.getElementById("sq_mtrs");
+var bedrooms_input = document.getElementById("bedrooms");
+var bathrooms_input = document.getElementById("bathrooms");
+var duration_value_input = document.getElementById("duration_value");
+
+// Add event listeners to the input fields to restrict input to positive integers
+sq_mtrs_input.addEventListener("input", restrictToPositiveIntegers);
+bedrooms_input.addEventListener("input", restrictToPositiveIntegers);
+bathrooms_input.addEventListener("input", restrictToPositiveIntegers);
+duration_value_input.addEventListener("input", restrictToPositiveIntegers);
+
+function restrictToPositiveIntegers(event) {
+  // Get the input value and remove any non-numeric characters
+  var input_value = event.target.value.replace(/[^0-9]/g, "");
+  
+  // Set the input value to the cleaned value
+  event.target.value = input_value;
+}
+
+	</script>
   </body>
 </html>
