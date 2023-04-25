@@ -40,9 +40,9 @@ def index():
         # Make the predictions for all towns and adjust based on the duration and num values
         price_preds = clf.predict(X)
         if duration == 'months':
-            price_preds *= duration_value / 12
+            price_preds *= duration_value
         else:
-            price_preds *= duration_value / 365
+            price_preds *= duration_value / 30
 
         # Add the predicted prices to the data_copy DataFrame for the corresponding Town
         data_copy = data.copy()
